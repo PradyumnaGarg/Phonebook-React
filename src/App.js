@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import phonebookService from './httpServices';
+import Persons from './components/Persons';
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
 
 const App = () => {
 
@@ -90,46 +93,6 @@ const App = () => {
       <h2>Numbers</h2>
       <Persons personsToShow = {personsToShow} deletePerson = {deletePerson} />
     </div>
-  )
-}
-
-const Filter = ({filter, setFilter}) => {
-   return (
-    <div>
-      filter shown with <input value = {filter} onChange = {(e) => setFilter(e.target.value)}  />
-    </div>
-   )
-}
-
-const PersonForm = ({props}) => {
-  return (
-    <div>
-      <form onSubmit={props.addPerson}>
-        <div>
-          name: <input value = {props.newName}  onChange = {(e) => props.setNewName(e.target.value)} />
-        </div>
-        <div>
-          number: <input type='number' value = {props.newNumber}  onChange = {(e) => props.setNewNumber(e.target.value)} />
-        </div>
-        <div>
-          <button type='submit'>Add</button>
-        </div>
-      </form>
-    </div>
-  )
-}
-
-const Persons = ({personsToShow, deletePerson}) => {
-  console.log(personsToShow);
-  return (
-    <div>
-    {personsToShow.map((person) => (
-      <div key = {person._id}>
-        <p >{person.name} {person.number}</p>
-        <button onClick = {() => {deletePerson(person)}}>Delete</button>
-      </div>
-    ))}
-  </div>
   )
 }
 

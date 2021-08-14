@@ -1,6 +1,6 @@
 import axios from 'axios';
-// let baseURL = 'http://localhost:2000/api/persons'
-let baseURL = '/api/persons'
+let baseURL = 'http://localhost:2000/api/persons'
+// let baseURL = '/api/persons'
 
 if (process.env.REACT_APP_ENVTYPE === "dev") {
     console.log('[HTTP] Env type', typeof(process.env.REACT_APP_ENVTYPE));
