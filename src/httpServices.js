@@ -1,10 +1,10 @@
 import axios from 'axios';
-let baseURL = 'http://localhost:2000/api/persons'
-// let baseURL = '/api/persons'
+let baseURL = '/api/persons'
 
-if (process.env.REACT_APP_ENVTYPE === "dev") {
-    console.log('[HTTP] Env type', typeof(process.env.REACT_APP_ENVTYPE));
-    baseURL = '/api/persons'
+const { REACT_APP_ENVTYPE } = process.env;
+
+if (REACT_APP_ENVTYPE.trim() === 'dev') {
+    baseURL = 'http://localhost:2000/api/persons'
 }
 
 const getAll = () => {
@@ -27,4 +27,6 @@ const update = (person) => {
     return request.then(response => response.data);
 }
 
-export default { getAll, create, deleteEntry, update };
+const service = { getAll, create, deleteEntry, update }
+
+export default service;

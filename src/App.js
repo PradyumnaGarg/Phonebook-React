@@ -3,6 +3,7 @@ import phonebookService from './httpServices';
 import Persons from './components/Persons';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
+import Header from './components/Header';
 
 const App = () => {
 
@@ -81,17 +82,21 @@ const App = () => {
     newName,
     newNumber,
     setNewName,
-    setNewNumber
+    setNewNumber,
+    error
   }
   return (
     <div>
-      <div hidden={!error.show}>Error: {error.message}</div>
-      <h2>Phonebook</h2>
-      <Filter filter = {filter} setFilter = {setFilter} />
-      <h2>add a new</h2>
-      <PersonForm props = {propsForPersonForm} />
-      <h2>Numbers</h2>
-      <Persons personsToShow = {personsToShow} deletePerson = {deletePerson} />
+      <Header />
+      <div className='p-4'>
+        <div className='flex justify-center'>
+          <div className='w-full lg:w-1/3 space-y-8'>
+            <PersonForm props = {propsForPersonForm} />
+            <Filter filter = {filter} setFilter = {setFilter} />
+            <Persons personsToShow = {personsToShow} deletePerson = {deletePerson} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
