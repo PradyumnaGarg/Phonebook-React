@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import phonebookService from './httpServices';
-import Persons from './components/Persons';
-import Filter from './components/Filter';
-import PersonForm from './components/PersonForm';
 import Header from './components/Header';
+import Register from './pages/signup/Register';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Login from './pages/login/Login';
+import Home from './pages/home/Home';
 
 const App = () => {
 
@@ -87,16 +92,20 @@ const App = () => {
   }
   return (
     <div>
-      <Header />
-      <div className='p-4'>
-        <div className='flex justify-center'>
-          <div className='w-full lg:w-1/3 space-y-8'>
-            <PersonForm props = {propsForPersonForm} />
-            <Filter filter = {filter} setFilter = {setFilter} />
-            <Persons personsToShow = {personsToShow} deletePerson = {deletePerson} />
-          </div>
-        </div>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/login"><Login /></Route>
+          <Route path="/register"><Register /></Route>
+          <Route path="/home">
+              <>
+                <Header />
+                <Home propsForPersonForm = {propsForPersonForm} filter = {filter} setFilter = {setFilter}  personsToShow = {personsToShow} deletePerson = {deletePerson} />
+              </>
+          </Route>
+          <Route path="/"><Login /></Route>
+        </Switch>
+      </Router>
+
     </div>
   )
 }

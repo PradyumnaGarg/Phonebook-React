@@ -3,10 +3,10 @@ const PersonForm = ({props}) => {
       <div className='custom-box-shadow p-5 rounded-lg'>
         
         <form className='flex flex-col space-y-4' onSubmit={props.addPerson}>
-          <h2 className='text-lg font-semibold'>Add new contact</h2>
+          <h2 className='text-lg font-medium'>Add new contact</h2>
           <p className='text-red-500' hidden={!props.error.show}>Error: {props.error.message}</p>
           <div>
-            <label htmlFor='name' className='block mb-2'>Name</label>
+            <label htmlFor='name' className='block mb-2 font-extralight'>Name</label>
             <input 
               id='name'
               className='w-full border border-gray-300 rounded-lg'
