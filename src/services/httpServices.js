@@ -7,13 +7,18 @@ if (REACT_APP_ENVTYPE.trim() === 'dev') {
     baseURL = 'http://localhost:2000/api'
 }
 
+const getAuthHeader = () => {
+    const token = localStorage.getItem('phonebook_token') || null;
+    return { Authorization: `Bearer ${token}` };
+}
+
 const getRequest = (path) => {
-    const request = axios.get(`${baseURL}${path}`);
+    const request = axios.get(`${baseURL}${path}`, { headers: getAuthHeader() });
     return request.then(({data}) => data);
 }
 
 const postRequest = (path, body) => {
-    const request  = axios.post(`${baseURL}${path}`, body);
+    const request  = axios.post(`${baseURL}${path}`, body, { headers: getAuthHeader() });
     return request.then(({data}) => data);
 }
 
@@ -22,14 +27,9 @@ const putRequest = (path, body) => {
     return request.then(({data}) => data);
 }
 
-const deleteRequest = (path, body) => {
-    const request = axios.delete(`${baseURL}${path}`, body);
-    return request.then(({data}) => data);
-}
-
-const getAll = () => {
-    const request = axios.get(baseURL);
-    return request.then(response => response.data);
+const deleteRequest = (path) => {
+    const request = axios.delete(`${baseURL}${path}`, { headers: getAuthHeader() });
+    return request.then(({status}) => status);
 }
 
 const create = (person) => {
@@ -37,16 +37,11 @@ const create = (person) => {
     return request.then(response => response.data);
 }
 
-const deleteEntry = (id) => {
-    const request = axios.delete(`${baseURL}/${id}`);
-    return request.then(response => response.status);
-}
-
 const update = (person) => {
     const request = axios.put(`${baseURL}/${person._id}`, person);
     return request.then(response => response.data);
 }
 
-const service = { getAll, create, deleteEntry, update, getRequest, postRequest, putRequest, deleteRequest }
+const service = { create, update, getRequest, postRequest, putRequest, deleteRequest }
 
 export default service;

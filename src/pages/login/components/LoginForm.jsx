@@ -4,7 +4,11 @@ import loginService from "../login.service";
 const LoginForm = () => {
     const history = useHistory();
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => loginService.loginUser(data).then(({result: {token}}) => token && history.push('/home'));
+    const onSubmit = data => loginService.loginUser(data)
+    .then(({result: {token}}) => {
+        token && loginService.onLoginSucess(token);
+        history.push('/home');
+    });
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-4 custom-box-shadow p-8 md:p-10 w-full md:w-3/4 lg:w-1/3 rounded-lg bg-white'>
             <h2 className='text-xl'>Login to phonebook</h2>

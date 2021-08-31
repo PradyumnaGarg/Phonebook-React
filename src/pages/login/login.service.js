@@ -4,6 +4,10 @@ const loginUser = ({username, password}) => {
     return httpServices.postRequest('/users/login', {username, password});
 }
 
-const loginService = { loginUser };
+const onLoginSucess = (token) => {
+    localStorage.setItem('phonebook_token', token);
+}
+
+const loginService = { loginUser, onLoginSucess };
 
 export default loginService;
