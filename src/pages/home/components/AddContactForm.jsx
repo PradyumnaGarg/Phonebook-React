@@ -12,7 +12,9 @@ const AddContactForm = ({props}) => {
     };
 
     return (
-      <div className='custom-box-shadow p-5 rounded-lg'>
+      <div className='w-1/2'>
+        <div className='custom-box-shadow p-5 rounded-lg'>
+
         <form className='flex flex-col space-y-4' onSubmit={handleSubmit(onSubmit)}>
           <h2 className='text-lg font-medium'>Add new contact</h2>
           <p className='text-red-500' hidden={!props.error.show}>Error: {props.error.message}</p>
@@ -37,6 +39,7 @@ const AddContactForm = ({props}) => {
           <button className='bg-green-500 hover:bg-green-600 text-white px-8 py-2 rounded-lg' type='submit'>Add</button>
         </form>
       </div>
+     </div>
     )
 }
 

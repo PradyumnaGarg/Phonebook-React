@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import phonebookService from './services/httpServices';
-import Header from './components/Header';
 import Register from './pages/signup/Register';
 import {
   BrowserRouter as Router,
@@ -11,57 +9,11 @@ import Login from './pages/login/Login';
 import Home from './pages/home/Home';
 
 const App = () => {
-
-  const [ persons, setPersons ] = useState([]);
-  const [ newName, setNewName ] = useState('');
-  const [ newNumber, setNewNumber ] = useState('');
   const [ filter, setFilter ] = useState('');
   const [ error, setError ] = useState({show: false, message: ''});
   
-  const addPerson = (e) => {
-    e.preventDefault();
-    const personList = [...persons];
-    const person = personList.find((person) => person.name === newName);
-    setError({show: false, message: ''});
-    if(person) {
-      const confirmUpdate = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
-      if (confirmUpdate) {
-        updatePerson(person, personList);
-      }
-      return;
-    }
-    phonebookService.create({name: newName, number: newNumber})
-    .then((person) => {
-      console.log('Resp', person)
-      setPersons(personList.concat(person))
-    })
-    .catch((error) => {
-      setError({show: true, message: error.response.data.error});
-    });
-  }
-
-  const updatePerson = (person, personList) => {
-    phonebookService.update({...person, number: newNumber})
-    .then((respPerson) => {
-      personList = personList.map(ogperson => {
-        if (ogperson._id === person._id) {
-          ogperson = {...ogperson, number: newNumber};
-        }
-        return ogperson;
-      });
-
-      setPersons(personList);
-    })
-  }
-  
-  // let personsToShow = filter ? persons.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase())) : persons;
   
   const propsForPersonForm = {
-    addPerson,
-    newName,
-    newNumber,
-    setNewName,
-    setNewNumber,
     error
   }
   return (
@@ -71,10 +23,7 @@ const App = () => {
           <Route path="/login"><Login /></Route>
           <Route path="/register"><Register /></Route>
           <Route path="/home">
-              <>
-                <Header />
-                <Home propsForPersonForm = {propsForPersonForm} filter = {filter} setFilter = {setFilter}/>
-              </>
+            <Home propsForPersonForm = {propsForPersonForm} filter = {filter} setFilter = {setFilter}/>
           </Route>
           <Route path="/"><Login /></Route>
         </Switch>
