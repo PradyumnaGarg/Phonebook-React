@@ -1,14 +1,22 @@
 import { useForm } from "react-hook-form";
+import { useState } from 'react';
 import homeService from "../home.service";
 
-const AddContactForm = ({props}) => {
+const AddContactForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [ response, setResponse ] = useState({show: false, error: false, message: ''});
     const onSubmit = data => {
         homeService.saveNewContact(data)
         .then(savedContact => {
             console.log(savedContact);
-        })
-        .catch(error => console.log(error.response.data.error))
+            setResponse({show: true, error: false, message: 'Contact Added Successfully'});
+            setTimeout(() => setResponse({show: false, error: false, message: ''}), 2000)
+          })
+          .catch(error => {
+            console.log(error.response.data.error);
+            setResponse({show: false, error: true, message: error?.response?.data?.error || 'Error'});
+            setTimeout(() => setResponse({show: false, error: false, message: ''}), 2000)
+        });
     };
 
     return (
@@ -17,7 +25,8 @@ const AddContactForm = ({props}) => {
 
         <form className='flex flex-col space-y-4' onSubmit={handleSubmit(onSubmit)}>
           <h2 className='text-lg font-medium'>Add new contact</h2>
-          <p className='text-red-500' hidden={!props.error.show}>Error: {props.error.message}</p>
+          <p className='text-red-500' hidden={!response.error}>Error: {response.message}</p>
+          <p className='text-green-500' hidden={!response.show}>{response.message}</p>
           <div>
             <label htmlFor='name' className='block mb-2'>Name</label>
             <input

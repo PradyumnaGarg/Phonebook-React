@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Register from './pages/signup/Register';
 import {
   BrowserRouter as Router,
@@ -9,13 +9,6 @@ import Login from './pages/login/Login';
 import Home from './pages/home/Home';
 
 const App = () => {
-  const [ filter, setFilter ] = useState('');
-  const [ error, setError ] = useState({show: false, message: ''});
-  
-  
-  const propsForPersonForm = {
-    error
-  }
   return (
     <div>
       <Router>
@@ -23,7 +16,7 @@ const App = () => {
           <Route path="/login"><Login /></Route>
           <Route path="/register"><Register /></Route>
           <Route path="/home">
-            <Home propsForPersonForm = {propsForPersonForm} filter = {filter} setFilter = {setFilter}/>
+            <Home/>
           </Route>
           <Route path="/"><Login /></Route>
         </Switch>

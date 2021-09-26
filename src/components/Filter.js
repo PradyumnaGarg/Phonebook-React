@@ -5,6 +5,7 @@ const Filter = ({list, setList}) => {
   const filterList = (text) => {
     setFilter(text);
     const filteredList = text ? list.filter((item) => item.name.toLowerCase().includes(filter.toLowerCase())) : list;
+    console.log(filteredList)
     setList(filteredList);
   }
     return (

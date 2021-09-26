@@ -1,12 +1,18 @@
 import Contact from "./Contact";
 import Filter from '../../components/Filter';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Contacts = ({contactsToShow, deleteContact}) => {
-    const [contacts, setContacts] = useState(contactsToShow);
+    const [contacts, setContacts] = useState([]);
+    useEffect(() => {
+      setContacts([...contactsToShow]);
+    }, [contactsToShow])
     return (
       <div className='w-full custom-box-shadow rounded-lg p-5 space-y-4'>
-        <h2 className='text-lg font-semibold'>Contacts</h2>
+        <div className='flex items-center justify-between'>
+          <h2 className='text-lg font-semibold'>Contacts</h2>
+          <button className='bg-green-500 hover:bg-green-600 text-white px-8 py-2 rounded-lg'>Add New Contact</button>
+        </div>
         <Filter list={contactsToShow} setList = {setContacts} />
         { 
           contacts.map((contact) => (

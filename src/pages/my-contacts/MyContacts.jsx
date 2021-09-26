@@ -7,7 +7,7 @@ const MyContacts = () => {
 
     useEffect(() => {
       homeService.getAllContacts()
-      .then(({result}) => setContacts(result))
+      .then(({result}) => { setContacts([...result])})
       .catch((error) => console.log(error.response.data.error));
     }, []);
 
