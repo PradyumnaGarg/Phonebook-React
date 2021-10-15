@@ -1,6 +1,6 @@
 import Contacts from "./Contacts"
 import { useEffect, useState } from "react";
-import homeService from "../home/home.service";
+import homeService from "../../home/home.service";
 
 const MyContacts = () => {
     const [contacts, setContacts] = useState([]);
