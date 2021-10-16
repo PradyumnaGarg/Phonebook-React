@@ -6,12 +6,33 @@ import contactService from "../contact.service";
 
 const AddContactForm = () => {
     let { id } = useParams();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [ response, setResponse ] = useState({show: false, error: false, message: ''});
     const [ update, setUpdate ] = useState(false);
-    const [ contact, setContact ] = useState({name: '', number: ''});
-    const onSubmit = data => {
-        homeService.saveNewContact(data)
+    const onSubmit = (data) => {
+      if (update) {
+        updateContact(data);
+      } else {
+        addNewContact(data);
+      }
+    };
+
+    const updateContact = (data) => {
+      contactService.updateContact({...data, _id: id})
+      .then(savedContact => {
+        console.log(savedContact);
+        setResponse({show: true, error: false, message: 'Contact Updated Successfully'});
+        setTimeout(() => setResponse({show: false, error: false, message: ''}), 2000)
+      })
+      .catch(error => {
+        console.log(error.response.data.error);
+        setResponse({show: false, error: true, message: error?.response?.data?.error || 'Error'});
+        setTimeout(() => setResponse({show: false, error: false, message: ''}), 2000)
+      });
+    };
+
+    const addNewContact = (data) => {
+      homeService.saveNewContact(data)
         .then(savedContact => {
             console.log(savedContact);
             setResponse({show: true, error: false, message: 'Contact Added Successfully'});
@@ -22,22 +43,25 @@ const AddContactForm = () => {
             setResponse({show: false, error: true, message: error?.response?.data?.error || 'Error'});
             setTimeout(() => setResponse({show: false, error: false, message: ''}), 2000)
         });
-    };
+    }
 
-    useEffect(() => {
-      console.log(id);
+    const loadContactInfo = () => {
       if (id) {
         contactService.getContactInfo(id)
         .then((resp) => {
           setUpdate(true);
-          console.log(resp);
-          setContact(resp.result);
+          reset({
+            name: resp.result.name,
+            number: resp.result.number
+          });
         })
         .catch((error) => {
           console.log(error);
         })
       }
-    }, [id])
+    }
+
+    useEffect(loadContactInfo, [id, reset]);
 
     return (
       <div className='w-1/2'>
@@ -53,7 +77,6 @@ const AddContactForm = () => {
               id="name"
               className='w-full border border-gray-300 rounded-lg'
               type='text'
-              value={contact.name}
               {...register('name', { required: true })} />
               { errors.name && <span className='text-red-500 mt-1'>Name is required</span> }
           </div>
@@ -63,11 +86,10 @@ const AddContactForm = () => {
               id="number"
               className='w-full border border-gray-300 rounded-lg'
               type='number'
-              value={contact.number}
               {...register('number', { required: true })} />
               { errors.name && <span className='text-red-500 mt-1'>Name is required</span> }
           </div>
-          <button className='bg-green-500 hover:bg-green-600 text-white px-8 py-2 rounded-lg' type='submit'>Add</button>
+          <button className='bg-green-500 hover:bg-green-600 text-white px-8 py-2 rounded-lg' type='submit'>{ update ? 'Update' : 'Add'}</button>
         </form>
       </div>
      </div>
