@@ -23,7 +23,7 @@ const postRequest = (path, body) => {
 }
 
 const putRequest = (path, body) => {
-    const request = axios.put(`${baseURL}${path}`, body);
+    const request = axios.put(`${baseURL}${path}`, body, { headers: getAuthHeader() });
     return request.then(({data}) => data);
 }
 
