@@ -3,7 +3,7 @@ import Filter from '../../../components/Filter';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Contacts = ({contactsToShow, deleteContact}) => {
+const Contacts = ({contactsToShow, deleteContact, makeFavourite}) => {
     const [contacts, setContacts] = useState([]);
     useEffect(() => {
       setContacts([...contactsToShow]);
@@ -17,7 +17,7 @@ const Contacts = ({contactsToShow, deleteContact}) => {
         <Filter list={contactsToShow} setList = {setContacts} />
         { 
           contacts.map((contact) => (
-            <Contact key = { contact._id } contact = { contact } deleteContact = { deleteContact } />
+            <Contact key = { contact._id } contact = { contact } deleteContact = { deleteContact } makeFavourite = { makeFavourite } />
           ))
         }
       </div>
