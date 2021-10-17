@@ -1,13 +1,43 @@
+import { useEffect, useState } from "react";
 import Favourite from "./Favourite";
+import dashboardService from "../../dashboard.service";
 
 const Favourities = () => {
+    const [favourites, setFavourites] = useState([]);
+    useEffect(() => {
+        dashboardService.getFavouriteContacts()
+        .then((resp) => {
+            console.log(resp.result);
+            setFavourites([...resp.result]);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }, [])
     return (
         <>
             <div className='p-8 rounded-2xl bg-green-600 bg-opacity-90 text-white'>
-                <h1 className='text-lg mb-3'>Top 3 Favourites</h1>
-                <div className='flex justify-between'>
-                    <Favourite />
-                </div>  
+                <div className='flex mb-3'>
+                    <span className='text-lg'>Favourite Contacts</span>
+                    {
+                        favourites.length > 0
+                        ? (<span className='text-lg ml-auto'>{favourites.length} { favourites.length === 1 ? 'Contact' : 'Contacts' }</span>)
+                        : ''
+                    }
+                </div>
+                <div className='flex flex-wrap -m-4'>
+                    {
+                        favourites.length > 0 
+                        ? favourites.map((favourite) => (
+                            <div className='m-4' style={{ flex: '0 0 45%' }} key={favourite._id}>
+                                <Favourite favourite = { favourite } />
+                            </div>
+                          ))
+                        : (
+                            <span className='m-4'>No Favourites yet!</span>
+                        )
+                    }
+                </div>
             </div>
         </>
     )
