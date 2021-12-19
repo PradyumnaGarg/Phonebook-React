@@ -1,23 +1,23 @@
-import AddContactForm from './components/AddContactForm';
+import AddContactForm from '../contacts/add-contact/AddContactForm';
 import Sidebar from '../../components/Sidebar';
-import Header from '../../components/Header';
 import { Route, useRouteMatch } from 'react-router-dom';
-import MyContacts from '../my-contacts/MyContacts';
+import MyContacts from '../contacts/my-contacts/MyContacts';
+import Dashboard from '../dashboard/Dashboard';
 
 const Home = () => {
   let { path } = useRouteMatch();
   return (
     <div>
       <div className='flex'>
-        <Sidebar />
-        <div className='w-full'>
-          <Header />
-          <div className='p-8 space-y-8'>
-            <Route path={`${path}/my-contacts`}><MyContacts /></Route>
-            <Route exact path={`${path}`}>
-                <AddContactForm />
-            </Route>
-          </div>
+        <div className='w-1/5'>
+          <Sidebar />
+        </div>
+        <div className='w-4/5 p-4'>
+            <Route exact path={`${path}`}><Dashboard /></Route>
+            <Route exact path={`${path}/dashboard`}><Dashboard /></Route>
+            <Route exact path={`${path}/my-contacts`}><MyContacts /></Route>
+            <Route exact path={`${path}/add-new-contact`}><AddContactForm /></Route>
+            <Route exact path={`${path}/edit-contact/:id`}><AddContactForm /></Route>
         </div>
       </div>
     </div>
