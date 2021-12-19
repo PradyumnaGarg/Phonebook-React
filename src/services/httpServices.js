@@ -32,16 +32,6 @@ const deleteRequest = (path) => {
     return request.then(({status}) => status);
 }
 
-const create = (person) => {
-    const request = axios.post(baseURL, person);
-    return request.then(response => response.data);
-}
-
-const update = (person) => {
-    const request = axios.put(`${baseURL}/${person._id}`, person);
-    return request.then(response => response.data);
-}
-
-const service = { create, update, getRequest, postRequest, putRequest, deleteRequest }
+const service = { getRequest, postRequest, putRequest, deleteRequest }
 
 export default service;
