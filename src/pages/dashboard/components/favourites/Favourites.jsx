@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import Favourite from "./Favourite";
 import dashboardService from "../../dashboard.service";
+import { useLoading } from '../../../../contexts/loaderContext';
 
 const Favourities = () => {
     const [favourites, setFavourites] = useState([]);
+    const { setLoading } = useLoading();
     useEffect(() => {
+        setLoading(true)
         dashboardService.getFavouriteContacts()
         .then((resp) => {
+            setLoading(false)
             console.log(resp.result);
             setFavourites([...resp.result]);
         })
         .catch((error) => {
+            setLoading(false)
             console.log(error);
         });
     }, [])

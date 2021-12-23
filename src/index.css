@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 @font-face {
   font-family: 'Georama';
   src: url('./assets/fonts/Georama-Regular.ttf');

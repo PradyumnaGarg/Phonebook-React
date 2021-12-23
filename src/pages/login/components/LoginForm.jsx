@@ -1,14 +1,27 @@
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import loginService from "../login.service";
+import { useLoading } from '../../../contexts/loaderContext';
+import { toast } from "react-toastify";
 const LoginForm = () => {
     const history = useHistory();
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => loginService.loginUser(data)
-    .then(({result: {token}}) => {
-        token && loginService.onLoginSucess(token);
-        history.push('/home');
-    });
+    const { setLoading } =  useLoading();
+    const onSubmit = data => {
+        setLoading(true);
+        setTimeout(() => {
+            loginService.loginUser(data)
+            .then(({result: {token}}) => {
+                setLoading(false);
+                token && loginService.onLoginSucess(token);
+                history.push('/home');
+            })
+            .catch((error) => {
+                setLoading(false);
+                toast.error(error?.response?.data?.error || "Something went wrong")
+            });
+        }, 3000)
+    }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-4 custom-box-shadow p-8 md:p-10 w-full md:w-3/4 lg:w-1/3 rounded-lg bg-white'>
             <h2 className='text-xl'>Login to phonebook</h2>
