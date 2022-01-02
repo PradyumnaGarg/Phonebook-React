@@ -9,8 +9,8 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend,
   } from "chart.js";
+import moment from 'moment';
 
   ChartJS.register(
     CategoryScale,
@@ -24,11 +24,15 @@ import {
 const FrequencyGraph = () => {
     const [datasets, setDatasets] = useState([]);
     const [labels, setLabels] = useState([]);
+    const payload = {
+        startDate: moment().subtract(7, 'days').format('YYYY-MM-DD'),
+        stopDate: moment().format('YYYY-MM-DD'),
+    }
     useEffect(() => {
-        dashboardService.getGraphData()
+        dashboardService.getGraphData(payload)
         .then((resp) => {
             setLabels(resp?.result?.map(el => el._id));
-            setDatasets([{data: resp?.result?.map(el => el.count)}]);
+            setDatasets([{data: resp?.result?.map(el => el.count), borderColor: 'rgb(256, 256, 256)',}]);
         })
         .catch((error) => {
             console.log(error);
@@ -44,11 +48,45 @@ const FrequencyGraph = () => {
 
     const options = {
         responsive: true,
+        scales: {
+            y: {
+                ticks: {
+                  color: "white",
+                  stepSize: 1,
+                  beginAtZero: true,
+                },
+                grid: {
+                    color: '#c7c7c7'
+                },
+                title: {
+                    display: true,
+                    text: 'No. of contacts',
+                    color: 'white'
+                  }
+            },
+            x: {
+                ticks: {
+                  color: "white",
+                  stepSize: 1,
+                  beginAtZero: true
+                },
+                grid: {
+                    color: '#c7c7c7'
+                },
+                title: {
+                    display: true,
+                    text: 'Dates',
+                    color: 'white'
+                  }
+            },
+        }
     };
     return (
         <>
-            Frequency Graph
-            <Line options={options} data={data} />
+            <div className='p-8 rounded-2xl bg-green-600 bg-opacity-90 my-4 text-white'>
+                <h2 className='text-lg mb-4'>Frequency Graph</h2>
+                <Line options={options} data={data} />
+            </div>
         </>
     )
 }
