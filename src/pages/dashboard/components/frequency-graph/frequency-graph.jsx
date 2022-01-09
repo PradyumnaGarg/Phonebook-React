@@ -32,7 +32,7 @@ const FrequencyGraph = () => {
         dashboardService.getGraphData(payload)
         .then((resp) => {
             setLabels(resp?.result?.map(el => el._id));
-            setDatasets([{data: resp?.result?.map(el => el.count), borderColor: 'rgb(256, 256, 256)',}]);
+            setDatasets([{data: resp?.result?.map(el => el.count), borderColor: 'rgb(0, 0, 0)',}]);
         })
         .catch((error) => {
             console.log(error);
@@ -51,39 +51,39 @@ const FrequencyGraph = () => {
         scales: {
             y: {
                 ticks: {
-                  color: "white",
+                  color: "black",
                   stepSize: 1,
                   beginAtZero: true,
                 },
                 grid: {
-                    color: '#c7c7c7'
+                    color: 'black'
                 },
                 title: {
                     display: true,
                     text: 'No. of contacts',
-                    color: 'white'
+                    color: 'black'
                   }
             },
             x: {
                 ticks: {
-                  color: "white",
+                  color: "black",
                   stepSize: 1,
                   beginAtZero: true
                 },
                 grid: {
-                    color: '#c7c7c7'
+                    color: 'black'
                 },
                 title: {
                     display: true,
                     text: 'Dates',
-                    color: 'white'
+                    color: 'black'
                   }
             },
         }
     };
     return (
         <>
-            <div className='p-8 rounded-2xl bg-green-600 bg-opacity-90 my-4 text-white'>
+            <div className='p-8 rounded-2xl bg-green-200 bg-opacity-90 my-4 shadow-xl'>
                 <h2 className='text-lg mb-4'>Frequency Graph</h2>
                 <Line options={options} data={data} />
             </div>

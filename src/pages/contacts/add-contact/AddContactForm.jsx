@@ -64,7 +64,7 @@ const AddContactForm = () => {
     useEffect(loadContactInfo, [id, reset]);
 
     return (
-      <div className='w-1/2'>
+      <div className='w-1/2 p-4'>
         <div className='custom-box-shadow p-5 rounded-lg'>
 
         <form className='flex flex-col space-y-4' onSubmit={handleSubmit(onSubmit)}>

@@ -12,7 +12,7 @@ const Home = () => {
         <div className='w-1/5'>
           <Sidebar />
         </div>
-        <div className='w-4/5 p-4'>
+        <div className='w-4/5 flex-1 max-h-screen overflow-y-auto '>
             <Route exact path={`${path}`}><Dashboard /></Route>
             <Route exact path={`${path}/dashboard`}><Dashboard /></Route>
             <Route exact path={`${path}/my-contacts`}><MyContacts /></Route>
