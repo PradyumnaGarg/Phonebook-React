@@ -21,7 +21,7 @@ const Favourities = () => {
     }, [])
     return (
         <>
-            <div className='p-8 rounded-2xl bg-green-600 bg-opacity-90 text-white'>
+            <div className='p-8 rounded-2xl bg-green-200 bg-opacity-90 shadow-xl'>
                 <div className='flex mb-3'>
                     <span className='text-lg'>Favourite Contacts</span>
                     {

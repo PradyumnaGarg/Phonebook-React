@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+/* @import 'sweetalert2/src/sweetalert2.scss'; */
 
 @font-face {
   font-family: 'Georama';

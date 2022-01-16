@@ -8,8 +8,8 @@ const Sidebar = () => {
         history.push('/');
     }
     return (
-       <div className="flex flex-col justify-between min-h-screen w-full bg-green-600 text-white rounded-r-2xl pb-4">
-            <div className=''>
+        <div className='min-h-screen justify-between w-full bg-green-200 opacity-95 rounded-2xl'>
+            <div>
                 <Link to='/home/dashboard'><p className='text-3xl p-4 mb-4'>phonebook</p></Link>
                 <Link to='/home/dashboard'>
                     <div className='text-lg pb-6 pl-4 pr-8 flex items-center'>
@@ -51,7 +51,7 @@ const Sidebar = () => {
                 </svg>
                 <span>Logout</span>
             </div>
-       </div> 
+        </div>
     )
 }
 

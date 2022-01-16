@@ -1,5 +1,5 @@
 import axios from 'axios';
-let baseURL = '/api/persons'
+let baseURL = '/api'
 
 const { REACT_APP_ENVTYPE } = process.env;
 
