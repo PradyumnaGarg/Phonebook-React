@@ -8,7 +8,7 @@ const Home = () => {
   let { path } = useRouteMatch();
   return (
     <div>
-      <div className='flex'>
+      <div className='flex max-h-screen'>
         <div className='w-1/5'>
           <Sidebar />
         </div>

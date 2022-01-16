@@ -36,6 +36,7 @@ const LoginForm = () => {
                 { errors.password && <span className='text-red-500 text-sm'>Password is Required</span>}
             </div>
             <button type='submit' className='w-full bg-green-500 hover:bg-green-600 text-white px-8 py-2 rounded-lg'>Login</button>
+            <Link to='/forgot-password' className="text-green-500 hover:text-green-600 underline">Forgot Password?</Link>
             <p>Already have an account? <Link className='text-green-500 hover:text-green-600 underline' to='/register'>Register</Link></p>
         </form>
     )
