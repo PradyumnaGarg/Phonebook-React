@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-easy-crop": "^4.0.1",
     "react-hook-form": "^7.13.0",
     "react-loader-spinner": "^4.0.0",
     "react-loading-overlay": "^1.0.1",
@@ -22,7 +23,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "SET REACT_APP_ENVTYPE=dev && craco start",
+    "start": "REACT_APP_ENVTYPE=dev && craco start",
     "build": "SET REACT_APP_ENVTYPE=prod && craco build",
     "test": "craco test",
     "eject": "react-scripts eject"

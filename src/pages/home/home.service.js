@@ -12,10 +12,20 @@ const deleteContact = (id) => {
     return httpService.deleteRequest(`/contacts/${id}`);
 }
 
+const getProfile = () => {
+    return httpService.getRequest('/users/profile');
+}
+
+const changePassword = (data) => {
+    return httpService.putRequest('/users/changePassword', data);
+}
+
 const homeService = {
     getAllContacts,
     saveNewContact,
-    deleteContact
+    deleteContact,
+    getProfile,
+    changePassword
 }
 
 export default homeService;

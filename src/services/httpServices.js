@@ -3,9 +3,9 @@ let baseURL = '/api/persons'
 
 const { REACT_APP_ENVTYPE } = process.env;
 
-if (REACT_APP_ENVTYPE.trim() === 'dev') {
-    baseURL = 'http://localhost:2000/api'
-}
+baseURL = 'http://localhost:2000/api'
+// if (REACT_APP_ENVTYPE.trim() === 'dev') {
+// }
 
 const getAuthHeader = () => {
     const token = localStorage.getItem('phonebook_token') || null;
